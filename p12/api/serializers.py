@@ -25,3 +25,9 @@ class EventSerializer(ModelSerializer):
     class Meta:
         model = models.Event
         fields = '__all__'
+
+
+class EventStatusSerializer(ModelSerializer):
+    class Meta:
+        model = models.EventStatus
+        fields = '__all__'

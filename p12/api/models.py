@@ -19,8 +19,8 @@ class Client(models.Model):
     phone = models.CharField(max_length=20)
     mobile = models.CharField(max_length=20)
     compagny = models.CharField(max_length=50)
-    date_created = models.DateField()
-    date_updated = models.DateField()
+    date_created = models.DateField(auto_now=True)
+    date_updated = models.DateField(auto_now=True)
     sales_contact = models.ForeignKey(
         User, limit_choices_to={'role': 'sales'}, on_delete=models.DO_NOTHING, related_name='sales_contact')
 
@@ -34,34 +34,34 @@ class Contract(models.Model):
     sales_contact = models.ForeignKey(
         User, limit_choices_to={'role': 'sales'}, on_delete=models.DO_NOTHING)
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_created = models.DateField
-    date_updated = models.DateField
+    date_created = models.DateField(auto_now=True)
+    date_updated = models.DateField(auto_now=True)
     status = models.CharField(choices=STATUS_CHOICE, max_length=20)
     amount = models.IntegerField()
-    payment_due = models.DateField
+    payment_due = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.name
 
 
 class EventStatus(models.Model):
-    CHOICE = (('p', 'processing'), ('f', 'finished'))
+    CHOICE = (('processing', 'processing'), ('finished', 'finished'))
 
     status = models.CharField(choices=CHOICE, max_length=20)
 
     def __str__(self):
-        return self.event
+        return self.status
 
 
 class Event(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_created = models.DateField
-    date_updated = models.DateField
+    date_created = models.DateField(auto_now=True)
+    date_updated = models.DateField(auto_now=True)
     support = models.ForeignKey(User, limit_choices_to={
         'role': 'support'}, on_delete=models.DO_NOTHING, related_name='support_contact')
     event_status = models.ForeignKey(EventStatus, on_delete=models.DO_NOTHING)
     attendees = models.IntegerField()
-    date = models.DateField
+    date = models.DateField(auto_now=True)
     notes = models.CharField(max_length=100)
 
     def __str__(self):

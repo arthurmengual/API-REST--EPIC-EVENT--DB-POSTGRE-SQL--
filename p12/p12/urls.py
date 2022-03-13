@@ -11,6 +11,8 @@ router.register('client', views.ClientViewset)
 router.register('user', views.UserViewSet)
 router.register('contract', views.ContractViewset)
 router.register('event', views.EventViewset)
+router.register('event-status', views.EventStatusViewset)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

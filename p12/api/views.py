@@ -25,3 +25,9 @@ class EventViewset(ModelViewSet):
 
     serializer_class = serializers.EventSerializer
     queryset = models.Event.objects.all()
+
+
+class EventStatusViewset(ModelViewSet):
+
+    serializer_class = serializers.EventStatusSerializer
+    queryset = models.EventStatus.objects.all()
