@@ -3,8 +3,8 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    ROLE_CHOICE = (('administrateur', 'administrateur'),
-                   ('sales', 'sales'), ('support', 'support'), ('else', 'else'))
+    ROLE_CHOICE = (('manager', 'manager'),
+                   ('sales', 'sales'), ('support', 'support'))
 
     role = models.CharField(choices=ROLE_CHOICE, default='else', max_length=20)
 
