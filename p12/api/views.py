@@ -2,14 +2,9 @@ from rest_framework.viewsets import ModelViewSet
 from api import models
 from api import serializers
 
-# virer ce viewset
 
-
-class UserViewSet(ModelViewSet):
-
-    queryset = models.User.objects.all()
-    serializer_class = serializers.UserSerializer
-    http_method_names = ["get", "post", "put", "delete"]
+# surcharger les vues pour que le mec qui créé un client est devienne son sale contact, le mec qui créé un contrat devient
+# son sales contact, pareil pour creer un evenement
 
 
 class ClientViewset(ModelViewSet):
@@ -18,6 +13,16 @@ class ClientViewset(ModelViewSet):
     queryset = models.Client.objects.all()
     http_method_names = ["get", "post", "put", "delete"]
 
+    def get_queryset(self):
+        sales_contact = self.kwargs.get("sales_contact")
+        support_contact = self.kwargs.get("support_contact")
+        return models.Client.objects.filter(
+            sales_contact=sales_contact
+        ) | models.Client.objects.filter(support_contact=support_contact)
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 
 class ContractViewset(ModelViewSet):
 
@@ -25,12 +30,32 @@ class ContractViewset(ModelViewSet):
     queryset = models.Contract.objects.all()
     http_method_names = ["get", "post", "put", "delete"]
 
+    def get_queryset(self):
+        sales_contact = self.kwargs.get("sales_contact")
+        support_contact = self.kwargs.get("support_contact")
+        return models.Client.objects.filter(
+            sales_contact=sales_contact
+        ) | models.Client.objects.filter(support_contact=support_contact)
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
 
 class EventViewset(ModelViewSet):
 
     serializer_class = serializers.EventSerializer
     queryset = models.Event.objects.all()
     http_method_names = ["get", "post", "put", "delete"]
+
+    def get_queryset(self):
+        sales_contact = self.kwargs.get("sales_contact")
+        support_contact = self.kwargs.get("support_contact")
+        return models.Client.objects.filter(
+            sales_contact=sales_contact
+        ) | models.Client.objects.filter(support_contact=support_contact)
+
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
 
 
 class EventStatusViewset(ModelViewSet):
