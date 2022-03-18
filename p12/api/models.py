@@ -1,6 +1,3 @@
-from distutils.log import error
-from lib2to3.pytree import Base
-from multiprocessing.sharedctypes import Value
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 
@@ -35,16 +32,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     user_name = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=20)
-    last_name = models.CharField(max_length=20)
+    first_name = models.CharField(max_length=20, blank=True)
+    last_name = models.CharField(max_length=20, blank=True)
     role = models.CharField(choices=ROLE_CHOICE, default="else", max_length=20)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
-    USERNAME_FIELD = ['user_name']
-    REQUIRED_FIELDS = ['user_name']
+    USERNAME_FIELD = 'user_name'
+    REQUIRED_FIELDS = ['email', 'role']
 
     def __str__(self):
         return self.user_name

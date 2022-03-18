@@ -3,7 +3,6 @@ from . import models
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
-admin.site.register(models.User)
 
 # class CustomUserCreationForm(UserCreationForm):
 
