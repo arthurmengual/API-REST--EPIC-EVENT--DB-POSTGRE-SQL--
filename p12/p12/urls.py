@@ -10,7 +10,6 @@ from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register('client', views.ClientViewset)
-router.register('user', views.UserViewSet)
 router.register('contract', views.ContractViewset)
 router.register('event', views.EventViewset)
 router.register('event-status', views.EventStatusViewset)
@@ -18,7 +17,8 @@ router.register('event-status', views.EventStatusViewset)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('rest_framework.urls')),
     path('', include(router.urls)),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

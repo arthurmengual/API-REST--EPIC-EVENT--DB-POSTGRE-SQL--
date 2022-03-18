@@ -1,10 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from api import models
-from api import serializers
-
-
-# surcharger les vues pour que le mec qui créé un client est devienne son sale contact, le mec qui créé un contrat devient
-# son sales contact, pareil pour creer un evenement
+from api import models, serializers
 
 
 class ClientViewset(ModelViewSet):
@@ -21,6 +16,9 @@ class ClientViewset(ModelViewSet):
         ) | models.Client.objects.filter(support_contact=support_contact)
 
     def create(self, request, *args, **kwargs):
+        request.POST._mutable = True
+        request.POST['sales_contact'] = request.user.pk
+        request.POST._mutable = False
         return super().create(request, *args, **kwargs)
 
 
@@ -38,6 +36,9 @@ class ContractViewset(ModelViewSet):
         ) | models.Client.objects.filter(support_contact=support_contact)
 
     def create(self, request, *args, **kwargs):
+        request.POST._mutable = True
+        request.POST['sales_contact'] = request.user.pk
+        request.POST._mutable = False
         return super().create(request, *args, **kwargs)
 
 
@@ -55,11 +56,14 @@ class EventViewset(ModelViewSet):
         ) | models.Client.objects.filter(support_contact=support_contact)
 
     def create(self, request, *args, **kwargs):
+        request.POST._mutable = True
+        request.POST['sales_contact'] = request.user.pk
+        request.POST._mutable = False
         return super().create(request, *args, **kwargs)
 
 
 class EventStatusViewset(ModelViewSet):
 
-    serializer_class = serializers.EventStatusSerializer
-    queryset = models.EventStatus.objects.all()
+    serializer_class = serializers.EventStatuSerializer
+    queryset = models.EventStatu.objects.all()
     http_method_names = ["get", "post", "put", "delete"]

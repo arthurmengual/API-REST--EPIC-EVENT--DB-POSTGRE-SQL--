@@ -21,7 +21,7 @@ class EventSerializer(ModelSerializer):
         fields = '__all__'
 
 
-class EventStatusSerializer(ModelSerializer):
+class EventStatuSerializer(ModelSerializer):
     class Meta:
-        model = models.EventStatus
+        model = models.EventStatu
         fields = '__all__'
