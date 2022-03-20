@@ -4,15 +4,16 @@ from rest_framework_simplejwt.views import (
 )
 from django.contrib import admin
 from django.urls import path, include
-from api import views
+import client.views as clientviews
+import contract.views as contractviews
+import event.views as eventviews
 from rest_framework import routers
 
 
 router = routers.SimpleRouter()
-router.register('client', views.ClientViewset)
-router.register('contract', views.ContractViewset)
-router.register('event', views.EventViewset)
-router.register('event-status', views.EventStatusViewset)
+router.register('client', clientviews.ClientViewset)
+router.register('contract', contractviews.ContractViewset)
+router.register('event', eventviews.EventViewset)
 
 
 urlpatterns = [
