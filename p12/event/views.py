@@ -1,5 +1,6 @@
 from rest_framework.viewsets import ModelViewSet
 from . import models, serializers
+from django_filters import rest_framework as filters
 
 
 class EventViewset(ModelViewSet):
@@ -7,19 +8,20 @@ class EventViewset(ModelViewSet):
     serializer_class = serializers.EventSerializer
     queryset = models.Event.objects.all()
     http_method_names = ["get", "post", "put", "delete"]
-
-    def get_queryset(self):
-        sales_contact = self.kwargs.get("sales_contact")
-        support_contact = self.kwargs.get("support_contact")
-        return models.Client.objects.filter(
-            sales_contact=sales_contact
-        ) | models.Client.objects.filter(support_contact=support_contact)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ['client__last_name', 'client__email', 'date']
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True
-        request.POST['sales_contact'] = request.user.pk
+        request.data['sales_contact'] = request.user.pk
         request.POST._mutable = False
         return super().create(request, *args, **kwargs)
+
+    def update(self, request, *args, **kwargs):
+        request.POST._mutable = True
+        request.data['sales_contact'] = request.user.pk
+        request.POST._mutable = False
+        return super().update(request, *args, **kwargs)
 
 
 class EventStatusViewset(ModelViewSet):

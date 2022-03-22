@@ -16,11 +16,11 @@ class Contract(models.Model):
         related_name="contract_support_contact", null=True
     )
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_created = models.DateField(auto_now=True)
+    date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     status = models.CharField(choices=STATUS_CHOICE, max_length=20)
     amount = models.IntegerField()
-    payment_due = models.DateField(auto_now=True)
+    payment_due = models.DateField()
 
     def __str__(self):
         return self.client.last_name

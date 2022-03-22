@@ -14,7 +14,7 @@ class EventStatu(models.Model):
 
 class Event(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    date_created = models.DateField(auto_now=True)
+    date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     sales_contact = models.ForeignKey(
         User,
@@ -30,7 +30,7 @@ class Event(models.Model):
     )
     event_status = models.ForeignKey(EventStatu, on_delete=models.DO_NOTHING)
     attendees = models.IntegerField()
-    date = models.DateField(auto_now=True)
+    date = models.DateField()
     notes = models.CharField(max_length=100)
 
     def __str__(self):

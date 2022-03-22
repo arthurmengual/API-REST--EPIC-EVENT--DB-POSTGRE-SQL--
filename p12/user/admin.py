@@ -21,7 +21,7 @@ class CustomUserChangeForm(UserChangeForm):
 @admin.register(models.User)
 class UserAdmin(UserAdmin):
     list_display = ('username', 'role')
-    list_filter = ('username',)
+    list_filter = ('role',)
     search_fields = ('username', 'role')
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm

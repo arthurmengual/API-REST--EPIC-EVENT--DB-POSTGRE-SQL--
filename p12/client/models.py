@@ -12,7 +12,7 @@ class Client(models.Model):
     phone = models.CharField(max_length=20)
     mobile = models.CharField(max_length=20)
     compagny = models.CharField(max_length=50)
-    date_created = models.DateField(auto_now=True)
+    date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     sales_contact = models.ForeignKey(
         User,
