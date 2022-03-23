@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from . import serializers, models
+from . import serializers, models, permissions
 from django_filters import rest_framework as filters
 
 
@@ -10,6 +10,7 @@ class ClientViewset(ModelViewSet):
     http_method_names = ["get", "post", "put", "delete"]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('last_name', 'email')
+    permission_classes = [permissions.ClientPermission]
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True

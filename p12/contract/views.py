@@ -1,7 +1,7 @@
-from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from .import serializers, models
 from django_filters import rest_framework as filters
+from .permissions import ContractPermission
 
 
 class ContractViewset(ModelViewSet):
@@ -11,6 +11,7 @@ class ContractViewset(ModelViewSet):
     http_method_names = ["get", "post", "put", "delete"]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ['client__last_name', 'client__email', 'date_created', 'amount']
+    permission_classes = [ContractPermission]
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True
