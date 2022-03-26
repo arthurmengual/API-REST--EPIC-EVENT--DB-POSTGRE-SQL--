@@ -11,15 +11,15 @@ from rest_framework import routers
 
 
 router = routers.SimpleRouter()
-router.register('client', ClientViewset)
-router.register('contract', ContractViewset)
-router.register('event', EventViewset)
+router.register("client", ClientViewset)
+router.register("contract", ContractViewset)
+router.register("event", EventViewset)
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('rest_framework.urls')),
-    path('', include(router.urls)),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("admin/", admin.site.urls),
+    path("", include("rest_framework.urls")),
+    path("", include(router.urls)),
+    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]

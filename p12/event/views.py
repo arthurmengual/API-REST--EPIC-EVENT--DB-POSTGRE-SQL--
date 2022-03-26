@@ -9,18 +9,18 @@ class EventViewset(ModelViewSet):
     queryset = models.Event.objects.all()
     http_method_names = ["get", "post", "put", "delete"]
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ['client__last_name', 'client__email', 'date']
+    filterset_fields = ["client__last_name", "client__email", "date"]
     permission_classes = [permissions.EventPermission]
 
     def create(self, request, *args, **kwargs):
         request.POST._mutable = True
-        request.data['sales_contact'] = request.user.pk
+        request.data["sales_contact"] = request.user.pk
         request.POST._mutable = False
         return super().create(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         request.POST._mutable = True
-        request.data['sales_contact'] = request.user.pk
+        request.data["sales_contact"] = request.user.pk
         request.POST._mutable = False
         return super().update(request, *args, **kwargs)
 

@@ -7,13 +7,17 @@ class Contract(models.Model):
     STATUS_CHOICE = (("signed", "signed"), ("not signed", "not signed"))
 
     sales_contact = models.ForeignKey(
-        User, limit_choices_to={"role": "sales"}, on_delete=models.DO_NOTHING, related_name="contract_sales_contact"
+        User,
+        limit_choices_to={"role": "sales"},
+        on_delete=models.DO_NOTHING,
+        related_name="contract_sales_contact",
     )
     support_contact = models.ForeignKey(
         User,
         limit_choices_to={"role": "support"},
         on_delete=models.DO_NOTHING,
-        related_name="contract_support_contact", null=True
+        related_name="contract_support_contact",
+        null=True,
     )
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     date_created = models.DateField(auto_now_add=True)

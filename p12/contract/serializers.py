@@ -5,4 +5,4 @@ from . import models
 class ContractSerializer(ModelSerializer):
     class Meta:
         model = models.Contract
-        fields = '__all__'
+        fields = "__all__"

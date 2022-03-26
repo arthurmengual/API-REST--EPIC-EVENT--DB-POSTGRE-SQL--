@@ -11,22 +11,58 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('client', '0001_initial'),
+        ("client", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Contract',
+            name="Contract",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('date_created', models.DateField(auto_now=True)),
-                ('date_updated', models.DateField(auto_now=True)),
-                ('status', models.CharField(choices=[('signed', 'signed'), ('not signed', 'not signed')], max_length=20)),
-                ('amount', models.IntegerField()),
-                ('payment_due', models.DateField(auto_now=True)),
-                ('client', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='client.client')),
-                ('sales_contact', models.ForeignKey(limit_choices_to={'role': 'sales'}, on_delete=django.db.models.deletion.DO_NOTHING, related_name='contract_sales_contact', to=settings.AUTH_USER_MODEL)),
-                ('support_contact', models.ForeignKey(limit_choices_to={'role': 'support'}, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='contract_support_contact', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("date_created", models.DateField(auto_now=True)),
+                ("date_updated", models.DateField(auto_now=True)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("signed", "signed"), ("not signed", "not signed")],
+                        max_length=20,
+                    ),
+                ),
+                ("amount", models.IntegerField()),
+                ("payment_due", models.DateField(auto_now=True)),
+                (
+                    "client",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="client.client"
+                    ),
+                ),
+                (
+                    "sales_contact",
+                    models.ForeignKey(
+                        limit_choices_to={"role": "sales"},
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="contract_sales_contact",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "support_contact",
+                    models.ForeignKey(
+                        limit_choices_to={"role": "support"},
+                        null=True,
+                        on_delete=django.db.models.deletion.DO_NOTHING,
+                        related_name="contract_support_contact",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

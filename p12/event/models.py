@@ -20,13 +20,15 @@ class Event(models.Model):
         User,
         limit_choices_to={"role": "sales"},
         on_delete=models.DO_NOTHING,
-        related_name="event_sales_contact", null=True
+        related_name="event_sales_contact",
+        null=True,
     )
     support_contact = models.ForeignKey(
         User,
         limit_choices_to={"role": "support"},
         on_delete=models.DO_NOTHING,
-        related_name="event_support_contact", null=True
+        related_name="event_support_contact",
+        null=True,
     )
     event_status = models.ForeignKey(EventStatu, on_delete=models.DO_NOTHING)
     attendees = models.IntegerField()

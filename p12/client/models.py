@@ -25,8 +25,9 @@ class Client(models.Model):
         User,
         limit_choices_to={"role": "support"},
         on_delete=models.DO_NOTHING,
-        blank=True, null=True,
-        related_name="client_support_contact"
+        blank=True,
+        null=True,
+        related_name="client_support_contact",
     )
 
     def __str__(self):

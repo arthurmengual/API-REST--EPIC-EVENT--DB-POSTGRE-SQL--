@@ -5,4 +5,4 @@ from . import models
 class ClientSerializer(ModelSerializer):
     class Meta:
         model = models.Client
-        fields = '__all__'
+        fields = "__all__"

@@ -5,10 +5,10 @@ from . import models
 class EventSerializer(ModelSerializer):
     class Meta:
         model = models.Event
-        fields = '__all__'
+        fields = "__all__"
 
 
 class EventStatuSerializer(ModelSerializer):
     class Meta:
         model = models.EventStatu
-        fields = '__all__'
+        fields = "__all__"

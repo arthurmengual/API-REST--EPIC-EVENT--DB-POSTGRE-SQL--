@@ -1,22 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
 
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username, role, password=None):
         if not role:
-            raise ValueError('user must have a role')
+            raise ValueError("user must have a role")
 
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, role=role)
         user.set_password(password)
-        if role == 'manager':
+        if role == "manager":
             user.is_staff = True
         user.save(using=self._db)
         return user
 
     def create_superuser(self, username, password, email):
-        user = self.create_user(username=username, password=password, email=email, role='manager')
+        user = self.create_user(
+            username=username, password=password, email=email, role="manager"
+        )
         user.is_staff = True
         user.is_admin = True
         user.is_superuser = True
@@ -39,8 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
     def __str__(self):
         return self.username
