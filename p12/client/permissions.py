@@ -1,30 +1,20 @@
 from rest_framework.permissions import BasePermission
-from event.models import Event
+from .models import Client
 
 
 class ClientPermission(BasePermission):
-    def has_object_permission(self, request, view, obj):
+    def has_permission(self, request, view):
         if request.user.role == "manager":
             return True
-        if view.action == ["get"]:
-            return True
-        if request.user.role == "sales":
-            if view.action == "create":
+        if request.user.role == 'sales':
+            if view.action in ['create', 'list']:
                 return True
-            elif view.action in ["retrieve", "update"]:
-                if request.user.pk == obj.sales_contact.pk:
-                    return True
-                else:
-                    False
-            else:
-                return False
-        elif request.user.role == "support":
-            if view.action == "retrieve":
-                events = Event.objects.filter(support_contact=request.user)
-                for event in events:
-                    if event.client.pk == obj.pk:
+            if view.action in ['retrieve', 'update']:
+                client = Client.objects.filter(id=view.kwargs['pk'])
+                if client:
+                    if client[0].sales_contact.id == request.user.id:
                         return True
-            else:
-                return False
-        else:
-            return False
+        if request.user.role == 'support':
+            if view.action in ['list', 'retrieve']:
+                return True
+        return False

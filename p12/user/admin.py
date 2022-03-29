@@ -26,7 +26,7 @@ class UserAdmin(UserAdmin):
     fieldsets = (
         ("Connection info", {"fields": ("username", "password")}),
         ("Personal info", {"fields": ("first_name", "last_name", "email", "role")}),
-        ("Permissions", {"fields": ("is_staff", "is_superuser", "is_active")}),
+        ("Permissions", {"fields": ("groups", "is_staff", "is_superuser", "is_active")}),
     )
 
     add_fieldsets = (
@@ -42,6 +42,7 @@ class UserAdmin(UserAdmin):
                     "role",
                     "first_name",
                     "last_name",
+                    "groups",
                     "is_staff",
                     "is_superuser",
                     "is_active",

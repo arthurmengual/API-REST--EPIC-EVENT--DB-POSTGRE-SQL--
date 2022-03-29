@@ -1,31 +1,28 @@
 from rest_framework.permissions import BasePermission
-from rest_framework.exceptions import APIException
+from .models import Event
 
 
 class EventPermission(BasePermission):
-    def has_object_permission(self, request, view, obj):
+    def has_permission(self, request, view):
         if request.user.role == "manager":
             return True
-        if request.user.role == "sales":
-            if view.action == "create":
+        if request.user.role == 'sales':
+            if view.action in ['create', 'list']:
                 return True
-            elif view.action in ["retrieve", "update"]:
-                if request.user.pk == obj.sales_contact.pk:
-                    return True
-                else:
-                    False
-            else:
-                return False
-        if request.user.role == "support":
-            if view.action in ["retrieve", "update"]:
-                if obj.support_contact:
-                    if obj.support_contact.pk == request.user.pk:
+            if view.action in ['retrieve', 'update']:
+                event = Event.objects.filter(id=view.kwargs['pk'])
+                if event[0]:
+                    if event[0].sales_contact.id == request.user.id:
+                        print('ok')
                         return True
-                    else:
-                        return False
-                else:
-                    raise APIException({"error": "no support contact for this event"})
-            else:
-                return False
+        if request.user.role == 'support':
+            if view.action == 'list':
+                return True
+            if view.action in ['retrieve', 'update']:
+                event = Event.objects.filter(id=view.kwargs['pk'])
+                if event[0]:
+                    if event[0].support_contact:
+                        if event[0].support_contact.id == request.user.id:
+                            return True
         else:
             return False
