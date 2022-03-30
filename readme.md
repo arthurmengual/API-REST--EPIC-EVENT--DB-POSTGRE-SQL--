@@ -33,6 +33,8 @@ A little intro about the installation.
 
 ## API AND DATABASE
 
+```
+
 $ python3 venv env
 $ source env/bin/activate
 $ git clone https://github.com/arthurmengual/P12.git
@@ -61,8 +63,11 @@ $ ./manage.py migrate
 $ ./manage.py runserver
 
 ```
+
 ## API Documentation
 
 https://documenter.getpostman.com/view/17474735/UVypzHf3
+
+```
 
 ```
