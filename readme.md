@@ -31,14 +31,13 @@ A little intro about the installation.
 
 `
 
-# API AND DATABASE
+## API AND DATABASE
 
 $ python3 venv env
 $ source env/bin/activate
 $ git clone https://github.com/arthurmengual/P12.git
 $ pip install -r requirements.txt
-
-```
+$ cd p12
 $ sudo apt update
 $ sudo apt install postgresql postgresql-contrib
 $ sudo -i -u postgres
@@ -48,19 +47,22 @@ $ sudo -u postgres createdb 'db name'
 ==> go to app settings and configure the database like this:
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "db name",
-        "USER": "username",
-        "PASSWORD": "pswd",
-        "HOST": "localhost",
-        "PORT": "",
-    }
+"default": {
+"ENGINE": "django.db.backends.postgresql_psycopg2",
+"NAME": "db name",
+"USER": "username",
+"PASSWORD": "pswd",
+"HOST": "localhost",
+"PORT": "",
+}
 }
 
-$ cd p12
 $ ./manage.py migrate
 $ ./manage.py runserver
 
+```
+## API Documentation
+
+https://documenter.getpostman.com/view/17474735/UVypzHf3
 
 ```
