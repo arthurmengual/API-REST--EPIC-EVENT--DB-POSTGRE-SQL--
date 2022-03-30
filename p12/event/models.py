@@ -1,6 +1,7 @@
 from django.db import models
 from user.models import User
 from client.models import Client
+from contract.models import Contract
 
 
 class EventStatu(models.Model):
@@ -34,6 +35,7 @@ class Event(models.Model):
     attendees = models.IntegerField()
     date = models.DateField()
     notes = models.CharField(max_length=100)
+    contract = models.OneToOneField(Contract, on_delete=models.DO_NOTHING, null=True, blank=False)
 
     def __str__(self):
         return f"event of {self.client.last_name}"
