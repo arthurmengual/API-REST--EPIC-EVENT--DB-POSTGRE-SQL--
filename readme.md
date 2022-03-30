@@ -29,12 +29,38 @@ A list of technologies used within the project:
 
 A little intro about the installation.
 
-```
+`
+
+# API AND DATABASE
+
 $ python3 venv env
 $ source env/bin/activate
 $ git clone https://github.com/arthurmengual/P12.git
 $ pip install -r requirements.txt
+
+```
+$ sudo apt update
+$ sudo apt install postgresql postgresql-contrib
+$ sudo -i -u postgres
+$ psql
+$ sudo -u postgres createuser --interactive
+$ sudo -u postgres createdb 'db name'
+==> go to app settings and configure the database like this:
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "db name",
+        "USER": "username",
+        "PASSWORD": "pswd",
+        "HOST": "localhost",
+        "PORT": "",
+    }
+}
+
 $ cd p12
 $ ./manage.py migrate
 $ ./manage.py runserver
+
+
 ```
