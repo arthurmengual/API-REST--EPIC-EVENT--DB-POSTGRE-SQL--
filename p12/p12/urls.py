@@ -19,6 +19,7 @@ router.register("event", EventViewset)
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("rest_framework.urls")),
+    path('api/authentication/', include('dj_rest_auth.urls')),
     path("", include(router.urls)),
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
